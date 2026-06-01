@@ -1,0 +1,2323 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Karen Glamour</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #faf8f5;
+        --beige: #ede8e0;
+        --dark: #1a1a1a;
+        --mid: #2e2e2e;
+        --gold: #c8a96e;
+        --gold-light: #dfc08a;
+        --light-text: #6b6560;
+        --border: #d4cfc8;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+        background: var(--cream);
+        color: var(--dark);
+        overflow-x: hidden;
+      }
+
+      /* ── SCROLLBAR ── */
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--gold);
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 4rem;
+        transition:
+          background 0.5s,
+          box-shadow 0.5s;
+      }
+      nav.scrolled {
+        background: rgba(250, 248, 245, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 0.5px solid var(--border);
+      }
+      .nav-logo {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--cream);
+        transition: color 0.5s;
+      }
+      nav.scrolled .nav-logo {
+        color: var(--dark);
+      }
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.6rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      nav.scrolled .nav-links a {
+        color: var(--light-text);
+      }
+      .nav-links a:hover {
+        color: var(--gold) !important;
+      }
+      .nav-cta {
+        font-size: 0.58rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        border: 0.5px solid rgba(255, 255, 255, 0.5);
+        padding: 0.6rem 1.4rem;
+        cursor: pointer;
+        background: none;
+        color: rgba(255, 255, 255, 0.9);
+        transition: all 0.3s;
+      }
+      nav.scrolled .nav-cta {
+        border-color: var(--dark);
+        color: var(--dark);
+      }
+      .nav-cta:hover {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: var(--dark) !important;
+      }
+
+      /* ── HERO ── */
+      #hero {
+        min-height: 100vh;
+        background: var(--dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        padding: 6rem 4rem 4rem;
+      }
+
+      /* Particles canvas */
+      #particles {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Diagonal grain overlay */
+      #hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.4;
+      }
+
+      .hero-bg-kg {
+        position: absolute;
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(18rem, 40vw, 52rem);
+        font-weight: 600;
+        color: rgb(255 255 255 / 30%);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        user-select: none;
+        letter-spacing: -0.05em;
+        line-height: 1;
+        z-index: 0;
+      }
+
+      /* Gold horizontal line */
+      .hero-line {
+        width: 0;
+        height: 0.5px;
+        background: var(--gold);
+        margin: 1.5rem 0;
+        transition: width 1.2s ease 0.8s;
+      }
+      .hero-line.animate {
+        width: 80px;
+      }
+
+      .hero-content {
+        text-align: left;
+        position: relative;
+        z-index: 2;
+        max-width: 52%;
+      }
+
+      .hero-eyebrow {
+        font-size: 0.55rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--gold);
+        display: block;
+        margin-bottom: 1.2rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.9s ease 0.2s;
+      }
+      .hero-eyebrow.animate {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .hero-title-wrap {
+        overflow: hidden;
+      }
+      .hero-word {
+        display: inline-block;
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 300;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        color: var(--cream);
+        opacity: 0;
+        transform: translateY(60px);
+        transition:
+          opacity 0.9s ease,
+          transform 0.9s ease;
+      }
+      .hero-word.italic {
+        font-style: italic;
+        color: var(--gold);
+      }
+      .hero-word.animate {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .hero-sub {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1rem, 2vw, 1.4rem);
+        font-style: italic;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.45);
+        margin: 0.5rem 0 2.5rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.9s ease 1s;
+      }
+      .hero-sub.animate {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.9s ease 1.2s;
+      }
+      .hero-actions.animate {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .btn-gold {
+        font-size: 0.58rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        background: var(--gold);
+        color: var(--dark);
+        border: none;
+        padding: 1rem 2.5rem;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s;
+        font-family: "Montserrat", sans-serif;
+      }
+      .btn-gold:hover {
+        background: var(--gold-light);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(200, 169, 110, 0.3);
+      }
+
+      .btn-ghost {
+        font-size: 0.58rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        background: none;
+        color: rgba(255, 255, 255, 0.8);
+        border: 0.5px solid rgba(255, 255, 255, 0.3);
+        padding: 1rem 2.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-family: "Montserrat", sans-serif;
+      }
+      .btn-ghost:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+
+      /* Scroll indicator */
+      .hero-scroll {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.6rem;
+        opacity: 0;
+        animation: fadeIn 1s ease 2s forwards;
+      }
+      .scroll-mouse {
+        width: 22px;
+        height: 34px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 11px;
+        display: flex;
+        justify-content: center;
+        padding-top: 6px;
+      }
+      .scroll-dot {
+        width: 3px;
+        height: 6px;
+        background: var(--gold);
+        border-radius: 2px;
+        animation: scrollDot 2s ease-in-out infinite;
+      }
+      .scroll-label {
+        font-size: 0.48rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+      }
+
+      /* ── MARQUEE STRIP ── */
+      .marquee-strip {
+        background: var(--gold);
+        padding: 0.9rem 0;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .marquee-track {
+        display: inline-block;
+        animation: marquee 18s linear infinite;
+      }
+      .marquee-item {
+        display: inline-block;
+        font-size: 0.55rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--dark);
+        font-weight: 500;
+        padding: 0 2.5rem;
+      }
+      .marquee-dot {
+        color: rgba(26, 26, 26, 0.4);
+      }
+
+      /* ── ABOUT ── */
+      #about {
+        padding: 9rem 4rem;
+        display: flex;
+        gap: 6rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        align-items: center;
+      }
+      .about-visual {
+        flex: 1;
+        min-width: 280px;
+        position: relative;
+      }
+      .about-monogram {
+        width: 100%;
+        max-width: 340px;
+        aspect-ratio: 1;
+        background: var(--beige);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .about-monogram::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 30% 70%,
+          rgba(200, 169, 110, 0.12),
+          transparent 60%
+        );
+      }
+      .kg-big {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 9rem;
+        font-weight: 600;
+        color: var(--dark);
+        line-height: 1;
+        letter-spacing: -0.05em;
+        user-select: none;
+      }
+      .kg-script-overlay {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 1rem;
+        font-weight: 300;
+        color: var(--mid);
+        white-space: nowrap;
+        letter-spacing: 0.05em;
+      }
+      .about-corner {
+        position: absolute;
+        bottom: -1.5rem;
+        right: -1.5rem;
+        width: 5rem;
+        height: 5rem;
+        border: 0.5px solid var(--gold);
+      }
+      .about-text {
+        flex: 1.2;
+      }
+      .section-label {
+        font-size: 0.55rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1rem;
+        display: block;
+      }
+      .section-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2rem, 3.5vw, 3rem);
+        font-weight: 300;
+        line-height: 1.2;
+        margin-bottom: 1.8rem;
+        color: var(--dark);
+      }
+      .section-title em {
+        font-style: italic;
+        color: var(--gold);
+      }
+      .about-text p {
+        font-size: 0.82rem;
+        line-height: 1.95;
+        color: var(--light-text);
+        margin-bottom: 1.1rem;
+        font-weight: 300;
+      }
+      .stat-row {
+        display: flex;
+        gap: 3rem;
+        margin-top: 2.5rem;
+        border-top: 0.5px solid var(--border);
+        padding-top: 2rem;
+      }
+      .stat-num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2.8rem;
+        font-weight: 300;
+        color: var(--dark);
+        line-height: 1;
+        display: block;
+      }
+      .stat-label {
+        font-size: 0.52rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--light-text);
+        margin-top: 0.4rem;
+        display: block;
+      }
+
+      /* ── BEFORE/AFTER SECTION ── */
+      #before-after {
+        background: var(--dark);
+        padding: 8rem 4rem;
+      }
+      .ba-header {
+        max-width: 1200px;
+        margin: 0 auto 5rem;
+        text-align: center;
+      }
+      .ba-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+        font-weight: 300;
+        color: var(--cream);
+        line-height: 1.1;
+      }
+      .ba-title em {
+        font-style: italic;
+        color: var(--gold);
+      }
+      .ba-subtitle {
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.35);
+        letter-spacing: 0.1em;
+        margin-top: 1rem;
+        font-weight: 300;
+      }
+
+      .ba-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* COMPARISON SLIDER COMPONENT */
+      .compare-slider {
+        position: relative;
+        overflow: hidden;
+        cursor: col-resize;
+        aspect-ratio: 3/4;
+        user-select: none;
+      }
+      .compare-label-top {
+        text-align: center;
+        font-size: 0.5rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+        margin-bottom: 0.8rem;
+      }
+
+      .cs-before,
+      .cs-after {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .cs-before {
+        background: #2a2520;
+      }
+      .cs-before-1 {
+        background: #1e2628;
+      }
+      .cs-before-2 {
+        background: #28201e;
+      }
+      .cs-before-3 {
+        background: #201e28;
+      }
+
+      .cs-after {
+        background: #1a1a1a;
+        clip-path: inset(0 50% 0 0);
+        transition: clip-path 0s;
+      }
+      .cs-after-2,
+      .cs-after-3 {
+        background: #1a1a1a;
+      }
+
+      /* Hair illustration in slots */
+      .hair-before,
+      .hair-after {
+        width: 80%;
+        height: 85%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0;
+      }
+
+      .hair-icon {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.2rem;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.5rem;
+      }
+      .hair-desc {
+        font-size: 0.48rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-weight: 300;
+        text-align: center;
+      }
+      .cs-before .hair-desc {
+        color: rgba(255, 255, 255, 0.25);
+      }
+      .cs-after .hair-desc {
+        color: rgba(200, 169, 110, 0.7);
+      }
+
+      /* Wavy hair SVG placeholders */
+      .hair-svg {
+        width: 70%;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Divider line */
+      .cs-divider {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: white;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        pointer-events: none;
+      }
+      .cs-handle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+        z-index: 11;
+        pointer-events: none;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .compare-slider:hover .cs-handle {
+        transform: translate(-50%, -50%) scale(1.08);
+        box-shadow: 0 4px 24px rgba(200, 169, 110, 0.5);
+      }
+      .cs-handle-arrows {
+        display: flex;
+        gap: 2px;
+        align-items: center;
+        color: var(--dark);
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      /* Tag badges */
+      .cs-tag {
+        position: absolute;
+        z-index: 12;
+        bottom: 1rem;
+        font-size: 0.45rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 0.3rem 0.7rem;
+        pointer-events: none;
+      }
+      .cs-tag.before {
+        left: 1rem;
+        background: rgba(0, 0, 0, 0.5);
+        color: rgba(255, 255, 255, 0.6);
+        border: 0.5px solid rgba(255, 255, 255, 0.15);
+      }
+      .cs-tag.after {
+        right: 1rem;
+        background: var(--gold);
+        color: var(--dark);
+        font-weight: 500;
+      }
+
+      /* Service tag */
+      .cs-service {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        z-index: 12;
+        font-size: 0.45rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        background: rgba(200, 169, 110, 0.15);
+        color: var(--gold);
+        border: 0.5px solid rgba(200, 169, 110, 0.3);
+        padding: 0.3rem 0.7rem;
+        pointer-events: none;
+      }
+
+      /* ── SERVICES ── */
+      #services {
+        background: var(--dark);
+        padding: 8rem 4rem;
+      }
+      .services-header {
+        max-width: 1200px;
+        margin: 0 auto 5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+      .services-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+        font-weight: 300;
+        color: var(--cream);
+        line-height: 1.15;
+      }
+      .services-title em {
+        font-style: italic;
+        color: var(--gold);
+      }
+      .services-desc {
+        font-size: 0.72rem;
+        line-height: 1.9;
+        color: rgba(255, 255, 255, 0.35);
+        max-width: 280px;
+        font-weight: 300;
+      }
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.07);
+      }
+      .service-card {
+        background: var(--dark);
+        padding: 3rem 2.5rem;
+        transition: background 0.4s;
+        cursor: default;
+        position: relative;
+        overflow: hidden;
+      }
+      .service-card:hover {
+        background: #1f1f1f;
+      }
+      .service-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--gold);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.5s ease;
+      }
+      .service-card:hover::before {
+        transform: scaleX(1);
+      }
+      .service-num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 0.65rem;
+        color: var(--gold);
+        letter-spacing: 0.2em;
+        margin-bottom: 1.8rem;
+        display: block;
+        opacity: 0.6;
+      }
+      .service-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: var(--cream);
+        margin-bottom: 0.9rem;
+        line-height: 1.2;
+      }
+      .service-desc {
+        font-size: 0.7rem;
+        line-height: 1.85;
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 300;
+      }
+      .service-price {
+        margin-top: 2rem;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.1rem;
+        color: var(--gold);
+        font-style: italic;
+      }
+
+      /* ── VIP ── */
+      #vip {
+        background: var(--beige);
+        padding: 8rem 4rem;
+        text-align: center;
+      }
+      .vip-inner {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .vip-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 300;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+      }
+      .vip-title em {
+        font-style: italic;
+        color: var(--gold);
+      }
+      .vip-text {
+        font-size: 0.78rem;
+        line-height: 1.95;
+        color: var(--light-text);
+        font-weight: 300;
+        max-width: 480px;
+        margin: 0 auto 3rem;
+      }
+      .stamp-card {
+        display: inline-flex;
+        gap: 1rem;
+        background: white;
+        border: 0.5px solid var(--border);
+        padding: 2rem 2.5rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .stamp {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 0.5px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.35s;
+      }
+      .stamp:hover {
+        border-color: var(--gold);
+        transform: scale(1.1);
+      }
+      .stamp.filled {
+        background: var(--dark);
+        border-color: var(--dark);
+      }
+      .stamp-inner {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: rgba(0, 0, 0, 0.15);
+      }
+      .stamp.filled .stamp-inner {
+        color: var(--cream);
+      }
+      .stamp-free {
+        border: 1px solid var(--gold) !important;
+      }
+      .stamp-free span {
+        font-size: 0.4rem;
+        letter-spacing: 0.12em;
+        color: var(--gold);
+        text-transform: uppercase;
+      }
+
+      /* ── BOOKING ── */
+      #booking {
+        padding: 8rem 4rem;
+        background: var(--dark);
+        text-align: center;
+      }
+      .booking-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 300;
+        color: var(--cream);
+        line-height: 1.1;
+        margin-bottom: 1rem;
+      }
+      .booking-title em {
+        font-style: italic;
+        color: var(--gold);
+      }
+      .booking-sub {
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.35);
+        font-weight: 300;
+        letter-spacing: 0.05em;
+        margin-bottom: 3.5rem;
+      }
+      .booking-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        max-width: 1100px;
+        margin: 0 auto;
+        text-align: left;
+      }
+      .booking-map {
+        position: relative;
+        min-height: 420px;
+      }
+      .booking-map iframe {
+        width: 100%;
+        height: 100%;
+        min-height: 420px;
+        border: 0.5px solid rgba(255, 255, 255, 0.08);
+        display: block;
+        filter: grayscale(0.25) sepia(0.15) brightness(0.85);
+      }
+      .booking-map-label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem 1.2rem;
+        background: rgba(26, 26, 26, 0.92);
+        border-top: 0.5px solid rgba(200, 169, 110, 0.2);
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.55rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+      }
+      .booking-map-label strong {
+        display: block;
+        color: var(--gold);
+        font-weight: 500;
+        margin-bottom: 0.2rem;
+      }
+      .booking-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .booking-form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        width: 100%;
+      }
+      .form-field {
+        width: 100%;
+      }
+      .form-field input,
+      .form-field select {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 0.5px solid rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.85);
+        padding: 1rem 1.2rem;
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.04em;
+        font-weight: 300;
+        outline: none;
+        transition: border-color 0.3s;
+        -webkit-appearance: none;
+        box-sizing: border-box;
+      }
+      .form-field input[type="date"] {
+        color-scheme: dark;
+      }
+      .form-field input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(0.5) sepia(1) hue-rotate(5deg) saturate(0.8);
+        opacity: 0.6;
+        cursor: pointer;
+      }
+      .form-field input::placeholder {
+        color: rgba(255, 255, 255, 0.25);
+      }
+      .form-field input:focus,
+      .form-field select:focus {
+        border-color: var(--gold);
+      }
+      .form-field select option {
+        background: #1a1a1a;
+        color: white;
+      }
+      .btn-booking {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.58rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        background: var(--gold);
+        color: var(--dark);
+        border: none;
+        padding: 1.1rem 2.5rem;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s;
+        white-space: nowrap;
+        width: 100%;
+        margin-top: 0.3rem;
+      }
+      .btn-booking:hover {
+        background: var(--gold-light);
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) {
+        .booking-layout {
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+        }
+        .booking-map,
+        .booking-map iframe {
+          min-height: 260px;
+        }
+        #booking {
+          padding: 6rem 1.5rem;
+        }
+      }
+
+      /* ── BOOKING DEMO ── */
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20% {
+          transform: translateX(-6px);
+        }
+        40% {
+          transform: translateX(6px);
+        }
+        60% {
+          transform: translateX(-4px);
+        }
+        80% {
+          transform: translateX(4px);
+        }
+      }
+      .form-field.invalid input,
+      .form-field.invalid select {
+        border-color: rgba(200, 169, 110, 0.8);
+        animation: shake 0.4s ease;
+      }
+      .btn-booking.loading {
+        opacity: 0.7;
+        pointer-events: none;
+        letter-spacing: 0.35em;
+      }
+      .btn-booking.loading::after {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border: 1px solid var(--dark);
+        border-top-color: transparent;
+        border-radius: 50%;
+        margin-left: 0.8rem;
+        animation: spin 0.7s linear infinite;
+        vertical-align: middle;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .booking-form {
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+      .booking-form.hide {
+        opacity: 0;
+        transform: translateY(-20px);
+        pointer-events: none;
+      }
+      .booking-confirm {
+        max-width: 480px;
+        margin: 0 auto;
+        border: 0.5px solid rgba(200, 169, 110, 0.35);
+        padding: 3rem 2.5rem;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.6s ease 0.1s,
+          transform 0.6s ease 0.1s;
+        display: none;
+      }
+      .booking-confirm.show {
+        opacity: 1;
+        transform: translateY(0);
+        display: block;
+      }
+      .confirm-icon {
+        width: 56px;
+        height: 56px;
+        border: 0.5px solid var(--gold);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.8rem;
+      }
+      .confirm-icon svg {
+        stroke: var(--gold);
+      }
+      .confirm-label {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.55rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1rem;
+      }
+      .confirm-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2rem;
+        font-weight: 300;
+        color: var(--cream);
+        margin-bottom: 0.3rem;
+      }
+      .confirm-service {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.45);
+        letter-spacing: 0.08em;
+        margin-bottom: 2rem;
+      }
+      .confirm-divider {
+        width: 40px;
+        height: 0.5px;
+        background: rgba(200, 169, 110, 0.3);
+        margin: 0 auto 2rem;
+      }
+      .confirm-note {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.62rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.3);
+        letter-spacing: 0.04em;
+        margin-bottom: 2rem;
+        line-height: 1.7;
+      }
+      .confirm-actions {
+        display: flex;
+        gap: 0.8rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btn-confirm-wa {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.58rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        background: var(--gold);
+        color: var(--dark);
+        border: none;
+        padding: 0.9rem 2rem;
+        cursor: pointer;
+        font-weight: 500;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition:
+          background 0.3s,
+          transform 0.3s;
+      }
+      .btn-confirm-wa:hover {
+        background: var(--gold-light);
+        transform: translateY(-1px);
+      }
+      .btn-confirm-reset {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.55rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.35);
+        border: 0.5px solid rgba(255, 255, 255, 0.12);
+        padding: 0.9rem 1.5rem;
+        cursor: pointer;
+        font-weight: 300;
+        transition:
+          border-color 0.3s,
+          color 0.3s;
+      }
+      .btn-confirm-reset:hover {
+        border-color: rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .booking-demo-badge {
+        display: inline-block;
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.48rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.2);
+        border: 0.5px solid rgba(255, 255, 255, 0.1);
+        padding: 0.3rem 0.7rem;
+        margin-bottom: 2rem;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: var(--dark);
+        border-top: 0.5px solid rgba(255, 255, 255, 0.07);
+        padding: 3rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+      }
+      .footer-logo {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.3rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        color: var(--cream);
+        text-transform: uppercase;
+      }
+      .footer-tagline {
+        font-size: 0.52rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.25);
+        margin-top: 0.2rem;
+      }
+      .footer-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .footer-links a {
+        font-size: 0.52rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .footer-links a:hover {
+        color: var(--gold);
+      }
+      .footer-copy {
+        font-size: 0.48rem;
+        color: rgba(255, 255, 255, 0.18);
+        letter-spacing: 0.1em;
+      }
+
+      /* ── SCROLL REVEAL ── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.9s ease,
+          transform 0.9s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .reveal-delay-4 {
+        transition-delay: 0.4s;
+      }
+
+      /* ── ANIMATIONS ── */
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes scrollDot {
+        0%,
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        60% {
+          transform: translateY(10px);
+          opacity: 0;
+        }
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+
+      /* ── HERO PHOTO ── */
+      .hero-photo {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        overflow: hidden;
+        z-index: 1;
+      }
+      .hero-photo::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 2;
+        pointer-events: none;
+      }
+      .hero-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 35% top;
+      }
+
+      /* ── ABOUT PHOTO ── */
+      .about-photo {
+        width: 100%;
+        max-width: 340px;
+        aspect-ratio: 3/4;
+        overflow: hidden;
+        position: relative;
+      }
+      .about-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 900px) {
+        nav {
+          padding: 1rem 1.5rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        #hero {
+          padding: 7rem 1.5rem 5rem;
+          align-items: center;
+          justify-content: center;
+        }
+        #about,
+        #before-after,
+        #services,
+        #vip,
+        #booking {
+          padding: 5rem 1.5rem;
+        }
+        #about {
+          flex-direction: column;
+          gap: 3rem;
+        }
+        .ba-grid,
+        .services-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .services-header {
+          flex-direction: column;
+          gap: 1rem;
+          align-items: flex-start;
+        }
+        footer {
+          padding: 2rem 1.5rem;
+          flex-direction: column;
+          text-align: center;
+        }
+        .hero-photo {
+          display: block;
+          width: 100%;
+          opacity: 0.28;
+        }
+        .hero-photo::before {
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(to right, rgba(26, 26, 26, 0.4) 100%);
+        }
+        .hero-content {
+          text-align: center;
+          max-width: 100%;
+          position: relative;
+          z-index: 3;
+        }
+        .hero-line {
+          margin: 1.5rem auto;
+        }
+        .hero-actions {
+          justify-content: center;
+        }
+      }
+      @media (max-width: 600px) {
+        .ba-grid {
+          grid-template-columns: 1fr;
+        }
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav id="mainNav">
+      <div class="nav-logo">Karen Glamour</div>
+      <ul class="nav-links">
+        <li><a href="#about">Nosotros</a></li>
+        <li><a href="#before-after">Resultados</a></li>
+        <li><a href="#services">Servicios</a></li>
+        <li><a href="#vip">VIP</a></li>
+      </ul>
+      <button
+        class="nav-cta"
+        onclick="
+          document
+            .getElementById('booking')
+            .scrollIntoView({ behavior: 'smooth' })
+        "
+      >
+        Reservar
+      </button>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+      <canvas id="particles"></canvas>
+      <div class="hero-bg-kg">KG</div>
+      <div class="hero-content">
+        <span class="hero-eyebrow" id="eyebrow"
+          >✦ Especialistas en Alisados · Miami, FL</span
+        >
+        <div class="hero-title-wrap">
+          <div style="font-size: clamp(3.5rem, 9vw, 7.5rem)">
+            <span class="hero-word" id="w1" style="transition-delay: 0.4s"
+              >Karen</span
+            >
+            <span>&nbsp;</span>
+            <span
+              class="hero-word italic"
+              id="w2"
+              style="transition-delay: 0.6s"
+              >Glamour</span
+            >
+          </div>
+        </div>
+        <div class="hero-line" id="heroLine"></div>
+        <p class="hero-sub" id="heroSub">Tu cabello merece lo mejor</p>
+        <div class="hero-actions" id="heroActions">
+          <button
+            class="btn-gold"
+            onclick="
+              document
+                .getElementById('booking')
+                .scrollIntoView({ behavior: 'smooth' })
+            "
+          >
+            Reservar ahora
+          </button>
+          <button
+            class="btn-ghost"
+            onclick="
+              document
+                .getElementById('before-after')
+                .scrollIntoView({ behavior: 'smooth' })
+            "
+          >
+            Ver transformaciones
+          </button>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="img/heroe.png" alt="Karen Estrada — Karen Glamour" />
+      </div>
+      <div class="hero-scroll">
+        <div class="scroll-mouse"><div class="scroll-dot"></div></div>
+        <span class="scroll-label">Scroll</span>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-strip">
+      <div class="marquee-track" id="marqueeTrack">
+        <span class="marquee-item">✦ Alisados Profesionales</span>
+        <span class="marquee-item marquee-dot">◆</span>
+        <span class="marquee-item">Tratamientos Capilares</span>
+        <span class="marquee-item marquee-dot">◆</span>
+        <span class="marquee-item">Peinados de Lujo</span>
+        <span class="marquee-item marquee-dot">◆</span>
+        <span class="marquee-item">Black Diva Specialist</span>
+        <span class="marquee-item marquee-dot">◆</span>
+        <span class="marquee-item">Miami, Florida</span>
+        <span class="marquee-item marquee-dot">◆</span>
+        <span class="marquee-item">Color & Mechas</span>
+        <span class="marquee-item marquee-dot">◆</span>
+        <span class="marquee-item">✦ Alisados Profesionales</span>
+        <span class="marquee-item marquee-dot">◆</span>
+        <span class="marquee-item">Tratamientos Capilares</span>
+        <span class="marquee-item marquee-dot">◆</span>
+        <span class="marquee-item">Peinados de Lujo</span>
+        <span class="marquee-item marquee-dot">◆</span>
+        <span class="marquee-item">Black Diva Specialist</span>
+        <span class="marquee-item marquee-dot">◆</span>
+        <span class="marquee-item">Miami, Florida</span>
+        <span class="marquee-item marquee-dot">◆</span>
+        <span class="marquee-item">Color & Mechas</span>
+        <span class="marquee-item marquee-dot">◆</span>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="about-visual reveal">
+        <div class="about-photo">
+          <img
+            src="img/about-karen.png"
+            alt="Karen Estrada estilizando en Karen Glamour"
+          />
+        </div>
+        <div class="about-corner"></div>
+      </div>
+      <div class="about-text">
+        <span class="section-label reveal">✦ Sobre nosotros</span>
+        <h2 class="section-title reveal reveal-delay-1">
+          Cada cabello merece<br /><em>atención, amor<br />y cuidado</em>
+        </h2>
+        <p class="reveal reveal-delay-2">
+          Karen Estrada es especialista en alisados y tratamientos capilares con
+          formación en cosmetología. Su misión es que cada cliente salga
+          sintiéndose hermosa, con el cabello saludable, fuerte y lleno de vida.
+        </p>
+        <p class="reveal reveal-delay-2">
+          Ubicada en Miami, Florida, Karen Glamour se ha convertido en un
+          espacio de confianza donde la salud del cabello es la prioridad número
+          uno.
+        </p>
+        <div class="stat-row reveal reveal-delay-3">
+          <div class="stat">
+            <span class="stat-num">8K+</span
+            ><span class="stat-label">Seguidores</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">500+</span
+            ><span class="stat-label">Publicaciones</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">100%</span
+            ><span class="stat-label">Dedicación</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEFORE / AFTER -->
+    <section id="before-after">
+      <div class="ba-header">
+        <span
+          class="section-label reveal"
+          style="color: rgba(200, 169, 110, 0.8)"
+          >✦ Transformaciones reales</span
+        >
+        <h2 class="ba-title reveal reveal-delay-1">
+          Resultados que<br /><em>hablan solos</em>
+        </h2>
+        <p class="ba-subtitle reveal reveal-delay-2">
+          Arrastra el divisor para ver la transformación · Fotos reales de
+          clientes
+        </p>
+      </div>
+      <div class="ba-grid">
+        <!-- SLIDER 1 -->
+        <div class="reveal">
+          <p
+            class="compare-label-top"
+            style="
+              color: rgba(255, 255, 255, 0.3);
+              font-size: 0.5rem;
+              letter-spacing: 0.2em;
+              text-transform: uppercase;
+              margin-bottom: 0.8rem;
+              text-align: center;
+            "
+          >
+            ← Arrastra →
+          </p>
+          <div class="compare-slider" id="cs1">
+            <div class="cs-before cs-before-1">
+              <img
+                src="img/before-alisado.png"
+                style="
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  object-position: center top;
+                "
+                alt="Antes — Alisado Brasileño"
+              />
+            </div>
+            <div class="cs-after cs-after-1">
+              <img
+                src="img/after-alisado.png"
+                style="
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  object-position: center top;
+                "
+                alt="Después — Alisado Brasileño"
+              />
+            </div>
+            <div class="cs-divider" id="d1"></div>
+            <div class="cs-handle" id="h1">
+              <div class="cs-handle-arrows">◀&nbsp;▶</div>
+            </div>
+            <span class="cs-tag before">Antes</span>
+            <span class="cs-tag after">Después</span>
+            <span class="cs-service">Alisado Brasileño</span>
+          </div>
+        </div>
+
+        <!-- SLIDER 2 -->
+        <div class="reveal reveal-delay-1">
+          <p
+            class="compare-label-top"
+            style="
+              color: rgba(255, 255, 255, 0.3);
+              font-size: 0.5rem;
+              letter-spacing: 0.2em;
+              text-transform: uppercase;
+              margin-bottom: 0.8rem;
+              text-align: center;
+            "
+          >
+            ← Arrastra →
+          </p>
+          <div class="compare-slider" id="cs2">
+            <div class="cs-before cs-before-2">
+              <img
+                src="img/antes2026-05-29 134742.png"
+                style="
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  object-position: center top;
+                "
+                alt="Antes — Black Diva"
+              />
+            </div>
+            <div class="cs-after cs-after-2">
+              <img
+                src="img/despues2026-05-29 134748.png"
+                style="
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  object-position: center top;
+                "
+                alt="Después — Black Diva"
+              />
+            </div>
+            <div class="cs-divider" id="d2"></div>
+            <div class="cs-handle" id="h2">
+              <div class="cs-handle-arrows">◀&nbsp;▶</div>
+            </div>
+            <span class="cs-tag before">Antes</span>
+            <span class="cs-tag after">Después</span>
+            <span class="cs-service">Black Diva</span>
+          </div>
+        </div>
+
+        <!-- SLIDER 3 -->
+        <div class="reveal reveal-delay-2">
+          <p
+            class="compare-label-top"
+            style="
+              color: rgba(255, 255, 255, 0.3);
+              font-size: 0.5rem;
+              letter-spacing: 0.2em;
+              text-transform: uppercase;
+              margin-bottom: 0.8rem;
+              text-align: center;
+            "
+          >
+            ← Arrastra →
+          </p>
+          <div class="compare-slider" id="cs3">
+            <div class="cs-before cs-before-3">
+              <img
+                src="img/antesCaptura de pantalla 2026-05-29 135234.png"
+                style="
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  object-position: center top;
+                "
+                alt="Antes — Hidratación Profunda"
+              />
+            </div>
+            <div class="cs-after cs-after-3">
+              <img
+                src="img/despuesCaptura de pantalla 2026-05-29 135242.png"
+                style="
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  object-position: center top;
+                "
+                alt="Después — Hidratación Profunda"
+              />
+            </div>
+            <div class="cs-divider" id="d3"></div>
+            <div class="cs-handle" id="h3">
+              <div class="cs-handle-arrows">◀&nbsp;▶</div>
+            </div>
+            <span class="cs-tag before">Antes</span>
+            <span class="cs-tag after">Después</span>
+            <span class="cs-service">Hidratación Profunda</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="services-header">
+        <h2 class="services-title reveal">Nuestros<br /><em>Servicios</em></h2>
+        <p class="services-desc reveal reveal-delay-1">
+          Tratamientos exclusivos diseñados para la salud y belleza de tu
+          cabello, con productos premium.
+        </p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <span class="service-num">01</span>
+          <h3 class="service-name">Alisado Brasileño</h3>
+          <p class="service-desc">
+            Queratina profesional que elimina el frizz, sella la cutícula y
+            aporta brillo intenso por meses.
+          </p>
+          <div class="service-price">Desde $150</div>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+          <span class="service-num">02</span>
+          <h3 class="service-name">Tratamiento Black Diva</h3>
+          <p class="service-desc">
+            Especialidad de la casa. Alisado profundo para cabello afro y rizado
+            con resultados transformadores.
+          </p>
+          <div class="service-price">Desde $200</div>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <span class="service-num">03</span>
+          <h3 class="service-name">Hidratación Profunda</h3>
+          <p class="service-desc">
+            Mascarillas nutritivas que restauran la fibra capilar desde adentro
+            hacia afuera.
+          </p>
+          <div class="service-price">Desde $80</div>
+        </div>
+        <div class="service-card reveal">
+          <span class="service-num">04</span>
+          <h3 class="service-name">Peinados de Ocasión</h3>
+          <p class="service-desc">
+            Estilos únicos para bodas, quinceañeras y cualquier ocasión especial
+            que lo merece.
+          </p>
+          <div class="service-price">Desde $60</div>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+          <span class="service-num">05</span>
+          <h3 class="service-name">Color & Mechas</h3>
+          <p class="service-desc">
+            Balayage, mechas y color plano con técnicas modernas y productos de
+            primera calidad.
+          </p>
+          <div class="service-price">Desde $120</div>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <span class="service-num">06</span>
+          <h3 class="service-name">Corte & Estilo</h3>
+          <p class="service-desc">
+            Cortes personalizados según la forma de tu rostro y tu personalidad
+            única.
+          </p>
+          <div class="service-price">Desde $45</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIP -->
+    <section id="vip">
+      <div class="vip-inner">
+        <span class="section-label reveal">✦ Membresía exclusiva</span>
+        <h2 class="vip-title reveal reveal-delay-1">
+          Club <em>VIP</em><br />Karen Glamour
+        </h2>
+        <p class="vip-text reveal reveal-delay-2">
+          Acumula sellos con cada visita y desbloquea beneficios exclusivos. En
+          tu décima visita, recibes un servicio completamente gratis.
+        </p>
+        <div class="stamp-card reveal reveal-delay-3">
+          <div class="stamp filled"><span class="stamp-inner">KG</span></div>
+          <div class="stamp filled"><span class="stamp-inner">KG</span></div>
+          <div class="stamp filled"><span class="stamp-inner">KG</span></div>
+          <div class="stamp filled"><span class="stamp-inner">KG</span></div>
+          <div class="stamp filled"><span class="stamp-inner">KG</span></div>
+          <div class="stamp"><span class="stamp-inner">KG</span></div>
+          <div class="stamp"><span class="stamp-inner">KG</span></div>
+          <div class="stamp"><span class="stamp-inner">KG</span></div>
+          <div class="stamp"><span class="stamp-inner">KG</span></div>
+          <div class="stamp stamp-free"><span>GRATIS</span></div>
+        </div>
+        <div class="reveal reveal-delay-4">
+          <button class="btn-gold">Quiero ser VIP</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKING -->
+    <section id="booking">
+      <span class="section-label reveal" style="color: rgba(200, 169, 110, 0.6)"
+        >✦ Agenda tu cita</span
+      >
+      <h2 class="booking-title reveal reveal-delay-1">
+        Reserva tu<br /><em>experiencia</em>
+      </h2>
+      <p class="booking-sub reveal reveal-delay-2">
+        Miami, Florida · (786) 790-6547
+      </p>
+
+      <div class="booking-layout reveal reveal-delay-3">
+        <!-- MAPA -->
+        <div class="booking-map">
+          <iframe
+            src="https://maps.google.com/maps?q=2750+SW+87th+Ave+STE+201,+Miami,+FL+33165&output=embed&z=15"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Karen Glamour ubicación"
+            allowfullscreen
+          >
+          </iframe>
+          <div class="booking-map-label">
+            <strong>Karen Glamour</strong>
+            2750 SW 87th Ave STE 201, Miami, FL 33165
+          </div>
+        </div>
+
+        <!-- FORMULARIO -->
+        <div class="booking-right">
+          <div class="booking-form" id="bookingForm">
+            <div class="form-field" id="ff-nombre">
+              <input type="text" id="inputNombre" placeholder="Tu nombre" />
+            </div>
+            <div class="form-field" id="ff-tel">
+              <input
+                type="tel"
+                id="inputTel"
+                placeholder="Teléfono / WhatsApp"
+              />
+            </div>
+            <div class="form-field" id="ff-fecha">
+              <input type="date" id="inputFecha" />
+            </div>
+            <div class="form-field" id="ff-servicio">
+              <select id="inputServicio">
+                <option value="" disabled selected>Servicio deseado</option>
+                <option>Alisado Brasileño</option>
+                <option>Black Diva</option>
+                <option>Hidratación Profunda</option>
+                <option>Peinado de Ocasión</option>
+                <option>Color & Mechas</option>
+                <option>Corte & Estilo</option>
+              </select>
+            </div>
+            <button
+              class="btn-booking"
+              id="btnBooking"
+              onclick="submitBookingDemo()"
+            >
+              Solicitar cita →
+            </button>
+          </div>
+
+          <!-- Tarjeta de confirmación demo -->
+          <div class="booking-confirm" id="bookingConfirm">
+            <span class="booking-demo-badge">Demo · Vista previa</span>
+            <div class="confirm-icon">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke-width="1"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div class="confirm-label">Solicitud recibida</div>
+            <div class="confirm-name" id="confirmNombre"></div>
+            <div class="confirm-service" id="confirmServicio"></div>
+            <div
+              class="confirm-date"
+              id="confirmFecha"
+              style="
+                font-family: &quot;Montserrat&quot;, sans-serif;
+                font-size: 0.6rem;
+                font-weight: 300;
+                color: rgba(255, 255, 255, 0.3);
+                letter-spacing: 0.1em;
+                margin-top: 0.3rem;
+                margin-bottom: 2rem;
+              "
+            ></div>
+            <div class="confirm-divider"></div>
+            <p class="confirm-note">
+              En breve recibirás confirmación por WhatsApp.<br />
+              2750 SW 87th Ave STE 201, Miami, Florida
+            </p>
+            <div class="confirm-actions">
+              <a
+                id="confirmWaBtn"
+                href="#"
+                target="_blank"
+                class="btn-confirm-wa"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+                  />
+                  <path
+                    d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L0 24l6.335-1.508A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.844 0-3.576-.49-5.073-1.346l-.364-.215-3.762.895.952-3.67-.237-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"
+                  />
+                </svg>
+                Confirmar por WhatsApp
+              </a>
+              <button class="btn-confirm-reset" onclick="resetBookingDemo()">
+                Nueva solicitud
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>
+        <div class="footer-logo">Karen Glamour</div>
+        <div class="footer-tagline">
+          ✦ Miami, Florida · Especialistas en Alisados
+        </div>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#about">Nosotros</a></li>
+        <li><a href="#before-after">Resultados</a></li>
+        <li><a href="#services">Servicios</a></li>
+        <li><a href="#booking">Reservas</a></li>
+      </ul>
+      <span class="footer-copy"
+        >© 2025 Karen Glamour · Todos los derechos reservados</span
+      >
+    </footer>
+
+    <script>
+      // ── PARTICLES ──
+      (function () {
+        const canvas = document.getElementById("particles");
+        const ctx = canvas.getContext("2d");
+        let W,
+          H,
+          pts = [];
+
+        function resize() {
+          W = canvas.width = canvas.offsetWidth;
+          H = canvas.height = canvas.offsetHeight;
+        }
+
+        function initPts() {
+          pts = [];
+          const count = Math.floor((W * H) / 14000);
+          for (let i = 0; i < count; i++) {
+            pts.push({
+              x: Math.random() * W,
+              y: Math.random() * H,
+              r: Math.random() * 1.2 + 0.3,
+              vx: (Math.random() - 0.5) * 0.15,
+              vy: (Math.random() - 0.5) * 0.15,
+              o: Math.random() * 0.4 + 0.1,
+            });
+          }
+        }
+
+        function draw() {
+          ctx.clearRect(0, 0, W, H);
+          pts.forEach((p) => {
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0) p.x = W;
+            if (p.x > W) p.x = 0;
+            if (p.y < 0) p.y = H;
+            if (p.y > H) p.y = 0;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(200,169,110,${p.o})`;
+            ctx.fill();
+          });
+          requestAnimationFrame(draw);
+        }
+
+        resize();
+        initPts();
+        draw();
+        window.addEventListener("resize", () => {
+          resize();
+          initPts();
+        });
+      })();
+
+      // ── HERO ANIMATION ──
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          document.getElementById("eyebrow").classList.add("animate");
+          document.getElementById("w1").classList.add("animate");
+          document.getElementById("w2").classList.add("animate");
+          document.getElementById("heroLine").classList.add("animate");
+          setTimeout(() => {
+            document.getElementById("heroSub").classList.add("animate");
+            document.getElementById("heroActions").classList.add("animate");
+          }, 400);
+        }, 300);
+      });
+
+      // ── NAV SCROLL ──
+      window.addEventListener("scroll", () => {
+        const nav = document.getElementById("mainNav");
+        nav.classList.toggle("scrolled", window.scrollY > 60);
+      });
+
+      // ── SCROLL REVEAL ──
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+
+      // ── COMPARISON SLIDERS ──
+      function initSlider(sliderId, dividerId, handleId) {
+        const slider = document.getElementById(sliderId);
+        const divider = document.getElementById(dividerId);
+        const handle = document.getElementById(handleId);
+        const afterEl = slider.querySelector(".cs-after");
+
+        let dragging = false;
+        let pct = 50;
+
+        function setPosition(x) {
+          const rect = slider.getBoundingClientRect();
+          let p = ((x - rect.left) / rect.width) * 100;
+          p = Math.max(3, Math.min(97, p));
+          pct = p;
+          afterEl.style.clipPath = `inset(0 ${100 - p}% 0 0)`;
+          divider.style.left = p + "%";
+          handle.style.left = p + "%";
+        }
+
+        // Mouse
+        slider.addEventListener("mousedown", (e) => {
+          dragging = true;
+          setPosition(e.clientX);
+          e.preventDefault();
+        });
+        window.addEventListener("mousemove", (e) => {
+          if (dragging) setPosition(e.clientX);
+        });
+        window.addEventListener("mouseup", () => {
+          dragging = false;
+        });
+
+        // Touch
+        slider.addEventListener(
+          "touchstart",
+          (e) => {
+            dragging = true;
+            setPosition(e.touches[0].clientX);
+          },
+          { passive: true },
+        );
+        window.addEventListener(
+          "touchmove",
+          (e) => {
+            if (dragging) setPosition(e.touches[0].clientX);
+          },
+          { passive: true },
+        );
+        window.addEventListener("touchend", () => {
+          dragging = false;
+        });
+
+        // Init
+        setPosition(0); // start fully left showing before
+        // Animate in on scroll
+        const revealObs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                // animate to 50%
+                let start = null;
+                const duration = 1200;
+                const from = 0;
+                const to = 50;
+                function step(ts) {
+                  if (!start) start = ts;
+                  const progress = Math.min((ts - start) / duration, 1);
+                  const ease = 1 - Math.pow(1 - progress, 4);
+                  const current = from + (to - from) * ease;
+                  const rect2 = slider.getBoundingClientRect();
+                  setPosition(rect2.left + (rect2.width * current) / 100);
+                  if (progress < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+                revealObs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.3 },
+        );
+        revealObs.observe(slider);
+      }
+
+      initSlider("cs1", "d1", "h1");
+      initSlider("cs2", "d2", "h2");
+      initSlider("cs3", "d3", "h3");
+
+      // ── BOOKING DEMO ──
+      function formatFecha(val) {
+        if (!val) return "";
+        var parts = val.split("-");
+        var meses = [
+          "enero",
+          "febrero",
+          "marzo",
+          "abril",
+          "mayo",
+          "junio",
+          "julio",
+          "agosto",
+          "septiembre",
+          "octubre",
+          "noviembre",
+          "diciembre",
+        ];
+        return (
+          parts[2] +
+          " de " +
+          meses[parseInt(parts[1], 10) - 1] +
+          " de " +
+          parts[0]
+        );
+      }
+
+      function submitBookingDemo() {
+        var nombre = document.getElementById("inputNombre");
+        var tel = document.getElementById("inputTel");
+        var fecha = document.getElementById("inputFecha");
+        var servicio = document.getElementById("inputServicio");
+        var btn = document.getElementById("btnBooking");
+
+        ["ff-nombre", "ff-tel", "ff-fecha", "ff-servicio"].forEach(
+          function (id) {
+            document.getElementById(id).classList.remove("invalid");
+          },
+        );
+
+        var valid = true;
+        if (!nombre.value.trim()) {
+          document.getElementById("ff-nombre").classList.add("invalid");
+          valid = false;
+        }
+        if (!tel.value.trim()) {
+          document.getElementById("ff-tel").classList.add("invalid");
+          valid = false;
+        }
+        if (!fecha.value) {
+          document.getElementById("ff-fecha").classList.add("invalid");
+          valid = false;
+        }
+        if (!servicio.value) {
+          document.getElementById("ff-servicio").classList.add("invalid");
+          valid = false;
+        }
+        if (!valid) return;
+
+        btn.textContent = "Procesando";
+        btn.classList.add("loading");
+
+        setTimeout(function () {
+          var form = document.getElementById("bookingForm");
+          var confirm = document.getElementById("bookingConfirm");
+          var fechaLegible = formatFecha(fecha.value);
+
+          document.getElementById("confirmNombre").textContent =
+            nombre.value.trim();
+          document.getElementById("confirmServicio").textContent =
+            servicio.value;
+          document.getElementById("confirmFecha").textContent =
+            "📅 " + fechaLegible;
+
+          var msg =
+            "Hola Karen, me llamo " +
+            nombre.value.trim() +
+            ", quiero reservar: " +
+            servicio.value +
+            " para el " +
+            fechaLegible +
+            ". Mi contacto: " +
+            tel.value.trim();
+          document.getElementById("confirmWaBtn").href =
+            "https://wa.me/17867906547?text=" + encodeURIComponent(msg);
+
+          form.classList.add("hide");
+          setTimeout(function () {
+            confirm.style.display = "block";
+            requestAnimationFrame(function () {
+              confirm.classList.add("show");
+            });
+          }, 400);
+        }, 1600);
+      }
+
+      function resetBookingDemo() {
+        var form = document.getElementById("bookingForm");
+        var confirm = document.getElementById("bookingConfirm");
+        var btn = document.getElementById("btnBooking");
+
+        confirm.classList.remove("show");
+        setTimeout(function () {
+          confirm.style.display = "none";
+          document.getElementById("inputNombre").value = "";
+          document.getElementById("inputTel").value = "";
+          document.getElementById("inputFecha").value = "";
+          document.getElementById("inputServicio").value = "";
+          btn.textContent = "Solicitar cita →";
+          btn.classList.remove("loading");
+          form.classList.remove("hide");
+        }, 500);
+      }
+    </script>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a
+      href="https://wa.me/17867906547?text=Hola%20Karen%2C%20quiero%20reservar%20una%20cita"
+      target="_blank"
+      rel="noopener noreferrer"
+      id="waBtn"
+      aria-label="Contactar por WhatsApp"
+      style="
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 999;
+        width: 52px;
+        height: 52px;
+        background: #25d366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        text-decoration: none;
+      "
+      onmouseenter="
+        this.style.transform = 'scale(1.1)';
+        this.style.boxShadow = '0 6px 28px rgba(37,211,102,0.6)';
+      "
+      onmouseleave="
+        this.style.transform = 'scale(1)';
+        this.style.boxShadow = '0 4px 20px rgba(37,211,102,0.4)';
+      "
+    >
+      <svg
+        width="26"
+        height="26"
+        viewBox="0 0 24 24"
+        fill="white"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+        />
+        <path
+          d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L0 24l6.335-1.508A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.844 0-3.576-.49-5.073-1.346l-.364-.215-3.762.895.952-3.67-.237-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"
+        />
+      </svg>
+    </a>
+  </body>
+</html>
